@@ -12,7 +12,7 @@ public class Frame {
 
     private final List<Score> tries;
 
-    public Frame(List<Score> tries) {
+    protected Frame(List<Score> tries) {
         this.tries = tries;
     }
 
@@ -27,13 +27,7 @@ public class Frame {
     public ScoreEvent getSpecialEvent() {
         var specialEvents = Set.of(ScoreEvent.STRIKE, ScoreEvent.SPARE);
         var result = tries.stream().filter(t -> specialEvents.contains(t.event())).findFirst();
-        if (result.isPresent()) {
-            // Something special happened.
-            return result.get().event();
-        } else {
-            // Nothing special happened.
-            return ScoreEvent.SCORE;
-        }
+        return result.isPresent() ? result.get().event() : ScoreEvent.SCORE;
     }
 
     public static Frame fromString(String rawFrame) throws InvalidInput {
@@ -42,29 +36,23 @@ public class Frame {
         // 12 - total of 3, 1 pin then 2 pins on second try.
         // 5/ - 5 with a spare on the second try.
         validateInput(rawFrame);
-        final var chars = rawFrame.toLowerCase().toCharArray();
+        final var chars = rawFrame.trim().toLowerCase().toCharArray();
         final var parsedTries = new ArrayList<Score>(chars.length);
         var lastPoint = 0;
-        var strikeFrame = false;
         for (char c : chars) {
             switch (c) {
-                case 'x' -> {
-                    parsedTries.add(new Score(ScoreEvent.STRIKE, 10));
-                    strikeFrame = true;
-                }
+                case 'x' -> parsedTries.add(new Score(ScoreEvent.STRIKE, 10));
                 case '/' -> parsedTries.add(new Score(ScoreEvent.SPARE, 10 - lastPoint));
                 case '-' -> parsedTries.add(new Score(ScoreEvent.MISS, 0));
                 default -> {
-                    if (!strikeFrame) {
-                        lastPoint = Character.getNumericValue(c);
-                        parsedTries.add(new Score(ScoreEvent.SCORE, lastPoint));
-                    }
+                    lastPoint = Character.getNumericValue(c);
+                    parsedTries.add(new Score(ScoreEvent.SCORE, lastPoint));
                 }
             }
         }
         var parsedFrame = new Frame(parsedTries);
         if (parsedFrame.getFrameScore() > 10 && parsedFrame.getSpecialEvent() == ScoreEvent.SCORE) {
-            // Only valid if a strike or spare occured.
+            // Only valid if a strike or spare occurred.
             throw new InvalidInput("Maximum raw score for a frame without a strike or spare is 10. Parsed score is %d".formatted(parsedFrame.getFrameScore()));
         }
         return parsedFrame;

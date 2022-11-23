@@ -11,7 +11,7 @@ public class Game {
 
     private final List<Frame> frames;
 
-    public Game(List<Frame> frames) {
+    protected Game(List<Frame> frames) {
         this.frames = frames;
     }
 
