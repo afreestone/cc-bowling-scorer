@@ -39,12 +39,14 @@ classDiagram
     }
     
     class Frame {
+        -Pattern: VALID_INPUT_PATTERN$
         -List~Score~: tries
         +Frame(List~Score~)
         +int: getFrameScore()
         +int: getSpareScore()
         +ScoreEvent: getSpecialEvent()   
         +Frame: fromString(String)$
+        -validateInput(String)$
     }
     
     class Score {
