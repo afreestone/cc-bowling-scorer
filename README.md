@@ -133,3 +133,9 @@ Games final score was 300
 [INFO] Finished at: 2022-11-23T19:04:55+11:00
 [INFO] ------------------------------------------------------------------------
 ```
+
+# Validating the Solution
+
+```shell
+mvn verify
+```
