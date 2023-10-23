@@ -40,11 +40,31 @@ env:
   }'
 
 jobs:
-  deployment:
+  dev-deployment:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        deployTarget: [ dev-1, dev-2, staging-1, staging-2, staging-3, prod-1 ]
+        deployTarget: [ dev-1, dev-2 ]
+    environment: ${{ matrix.deployTarget }}
+    steps:
+      - name: Say hello
+        run: "echo Hello from ${{matrix.deployTarget}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[matrix.deployTarget].image-name }}"
+  staging-deployment:
+    runs-on: ubuntu-latest
+    needs: dev-deployment
+    strategy:
+      matrix:
+        deployTarget: [ staging-1, staging-2, staging-3 ]
+    environment: ${{ matrix.deployTarget }}
+    steps:
+      - name: Say hello
+        run: "echo Hello from ${{matrix.deployTarget}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[matrix.deployTarget].image-name }}"
+  prod-deployment:
+    runs-on: ubuntu-latest
+    needs: staging-deployment
+    strategy:
+      matrix:
+        deployTarget: [ prod-1 ]
     environment: ${{ matrix.deployTarget }}
     steps:
       - name: Say hello
