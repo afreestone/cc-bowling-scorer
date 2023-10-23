@@ -73,33 +73,39 @@ jobs:
     with:
       ENVIRONMENT: dev-1
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
   dev-2:
     if: ${{ inputs.DEPLOY_DEV_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: dev-2
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
   staging-1:
     if: ${{ inputs.DEPLOY_STAGING_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-1
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
   staging-2:
     if: ${{ inputs.DEPLOY_STAGING_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-2
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
   staging-3:
     if: ${{ inputs.DEPLOY_STAGING_3 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-3
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
   prod-1:
     if: ${{ inputs.DEPLOY_PROD_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: prod-1
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
+      SERVICE_NAME: service-name
