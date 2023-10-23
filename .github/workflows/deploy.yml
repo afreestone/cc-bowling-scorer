@@ -67,37 +67,37 @@ permissions:
   contents: read
 
 jobs:
-  dev-1-deployment:
+  dev-1:
     if: ${{ inputs.DEPLOY_DEV_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: dev-1
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
-  dev-2-deployment:
+  dev-2:
     if: ${{ inputs.DEPLOY_DEV_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: dev-2
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
-  staging-1-deployment:
+  staging-1:
     if: ${{ inputs.DEPLOY_STAGING_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-1
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
-  staging-2-deployment:
+  staging-2:
     if: ${{ inputs.DEPLOY_STAGING_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-2
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
-  staging-3-deployment:
+  staging-3:
     if: ${{ inputs.DEPLOY_STAGING_3 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-3
       IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
-  prod-1-deployment:
+  prod-1:
     if: ${{ inputs.DEPLOY_PROD_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
