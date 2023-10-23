@@ -60,4 +60,4 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
     steps:
       - name: Say hello
-        run: "echo Hello from ${{inputs.ENVIRONMENT}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[inputs.ENVIRONMENT].[inputs.serviceName].image-name }} and I am deploying ${{ inputs.IMAGE_LABEL }}"
+        run: "echo Hello from ${{inputs.ENVIRONMENT}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[inputs.ENVIRONMENT][inputs.SERVICE_NAME].image-name }} and I am deploying ${{ inputs.IMAGE_LABEL }}"
