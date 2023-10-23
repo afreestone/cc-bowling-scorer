@@ -1,0 +1,16 @@
+name: deploy-release
+
+on:
+  push:
+
+jobs:
+  release-deploy:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      IMAGE_LABEL: ${{ github.ref }}
+      DEPLOY_DEV_1: true
+      DEPLOY_DEV_2: false
+      DEPLOY_STAGING_1: false
+      DEPLOY_STAGING_2: false
+      DEPLOY_STAGING_3: false
+      DEPLOY_PROD_1: false

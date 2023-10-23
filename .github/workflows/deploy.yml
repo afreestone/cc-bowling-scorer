@@ -7,65 +7,99 @@ on:
         description: Image Label to deploy
         type: string
         default: latest
+      DEPLOY_DEV_1:
+        description: Deploy to dev1
+        type: boolean
+        default: true
+      DEPLOY_DEV_2:
+        description: Deploy to dev2
+        type: boolean
+        default: false
+      DEPLOY_STAGING_1:
+        description: Deploy to staging1
+        type: boolean
+        default: false
+      DEPLOY_STAGING_2:
+        description: Deploy to staging2
+        type: boolean
+        default: false
+      DEPLOY_STAGING_3:
+        description: Deploy to staging3
+        type: boolean
+        default: false
+      DEPLOY_PROD_1:
+        description: Deploy to prod1
+        type: boolean
+        default: false
+
   workflow_dispatch:
     inputs:
       IMAGE_LABEL:
         description: Image Label to deploy
         type: string
         default: latest
+      DEPLOY_DEV_1:
+        description: Deploy to dev1
+        type: boolean
+        default: true
+      DEPLOY_DEV_2:
+        description: Deploy to dev2
+        type: boolean
+        default: false
+      DEPLOY_STAGING_1:
+        description: Deploy to staging1
+        type: boolean
+        default: false
+      DEPLOY_STAGING_2:
+        description: Deploy to staging2
+        type: boolean
+        default: false
+      DEPLOY_STAGING_3:
+        description: Deploy to staging3
+        type: boolean
+        default: false
+      DEPLOY_PROD_1:
+        description: Deploy to prod1
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
-env:
-  ENV_MAPPING_DICT: '{
-    "dev-1": {
-      "image-name": "dev1"
-    },
-    "dev-2": {
-      "image-name": "dev2"
-    },
-    "staging-1": {
-      "image-name": "staging1"
-    },
-    "staging-2": {
-      "image-name": "staging2"
-    },
-    "staging-3": {
-      "image-name": "staging3"
-    },
-    "prod-1": {
-      "image-name": "el production"
-    }
-  }'
-
 jobs:
-  dev-deployment:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        deployTarget: [ dev-1, dev-2 ]
-    environment: ${{ matrix.deployTarget }}
-    steps:
-      - name: Say hello
-        run: "echo Hello from ${{matrix.deployTarget}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[matrix.deployTarget].image-name }}"
-  staging-deployment:
-    runs-on: ubuntu-latest
-    needs: dev-deployment
-    strategy:
-      matrix:
-        deployTarget: [ staging-1, staging-2, staging-3 ]
-    environment: ${{ matrix.deployTarget }}
-    steps:
-      - name: Say hello
-        run: "echo Hello from ${{matrix.deployTarget}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[matrix.deployTarget].image-name }}"
-  prod-deployment:
-    runs-on: ubuntu-latest
-    needs: staging-deployment
-    strategy:
-      matrix:
-        deployTarget: [ prod-1 ]
-    environment: ${{ matrix.deployTarget }}
-    steps:
-      - name: Say hello
-        run: "echo Hello from ${{matrix.deployTarget}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[matrix.deployTarget].image-name }}"
+  dev-1-deployment:
+    if: ${{ input.DEPLOY_DEV_1 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: dev-1
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+  dev-2-deployment:
+    if: ${{ input.DEPLOY_DEV_2 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: dev-2
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+  staging-1-deployment:
+    if: ${{ input.DEPLOY_STAGING_1 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: staging-1
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+  staging-2-deployment:
+    if: ${{ input.DEPLOY_STAGING_2 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: staging-2
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+  staging-3-deployment:
+    if: ${{ input.DEPLOY_STAGING_3 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: staging-3
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+  prod-1-deployment:
+    if: ${{ input.DEPLOY_PROD_1 }}
+    uses: ./.github/workflows/do-deploy.yml
+    with:
+      ENVIRONMENT: prod-1
+      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}

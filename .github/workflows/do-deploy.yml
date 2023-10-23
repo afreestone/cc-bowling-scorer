@@ -1,0 +1,46 @@
+name: do-deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        description: Environment to deploy to
+        type: string
+        required: true
+      IMAGE_LABEL:
+        description: Image Label to deploy
+        type: string
+        default: latest
+
+permissions:
+  contents: read
+
+env:
+  ENV_MAPPING_DICT: '{
+    "dev-1": {
+      "image-name": "dev1"
+    },
+    "dev-2": {
+      "image-name": "dev2"
+    },
+    "staging-1": {
+      "image-name": "staging1"
+    },
+    "staging-2": {
+      "image-name": "staging2"
+    },
+    "staging-3": {
+      "image-name": "staging3"
+    },
+    "prod-1": {
+      "image-name": "el production"
+    }
+  }'
+
+jobs:
+  do-deployment:
+    runs-on: ubuntu-latest
+    environment: ${{ input.ENVIRONMENT }}
+    steps:
+      - name: Say hello
+        run: "echo Hello from ${{input.ENVIRONMENT}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[input.ENVIRONMENT].image-name }} and I am deploying ${{ input.IMAGE_LABEL }}"
