@@ -1,7 +1,6 @@
 name: deploy-release
 
-on:
-  push:
+on: push
 
 jobs:
   release-deploy:
