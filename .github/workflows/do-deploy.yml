@@ -1,4 +1,4 @@
-run-name: Deployment to ${{ inputs.ENVIRONMENT }}
+name: perform deploy
 
 on:
   workflow_call:
@@ -39,6 +39,7 @@ env:
 
 jobs:
   deployment:
+    name: Deploy to ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
     steps:
