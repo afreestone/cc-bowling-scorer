@@ -40,7 +40,7 @@ env:
 jobs:
   do-deployment:
     runs-on: ubuntu-latest
-    environment: ${{ input.ENVIRONMENT }}
+    environment: ${{ inputs.ENVIRONMENT }}
     steps:
       - name: Say hello
-        run: "echo Hello from ${{input.ENVIRONMENT}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[input.ENVIRONMENT].image-name }} and I am deploying ${{ input.IMAGE_LABEL }}"
+        run: "echo Hello from ${{inputs.ENVIRONMENT}} - my image is: ${{ fromJSON(env.ENV_MAPPING_DICT)[inputs.ENVIRONMENT].image-name }} and I am deploying ${{ inputs.IMAGE_LABEL }}"

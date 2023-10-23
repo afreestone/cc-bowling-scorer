@@ -68,38 +68,38 @@ permissions:
 
 jobs:
   dev-1-deployment:
-    if: ${{ input.DEPLOY_DEV_1 }}
+    if: ${{ inputs.DEPLOY_DEV_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: dev-1
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
   dev-2-deployment:
-    if: ${{ input.DEPLOY_DEV_2 }}
+    if: ${{ inputs.DEPLOY_DEV_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: dev-2
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
   staging-1-deployment:
-    if: ${{ input.DEPLOY_STAGING_1 }}
+    if: ${{ inputs.DEPLOY_STAGING_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-1
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
   staging-2-deployment:
-    if: ${{ input.DEPLOY_STAGING_2 }}
+    if: ${{ inputs.DEPLOY_STAGING_2 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-2
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
   staging-3-deployment:
-    if: ${{ input.DEPLOY_STAGING_3 }}
+    if: ${{ inputs.DEPLOY_STAGING_3 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: staging-3
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
   prod-1-deployment:
-    if: ${{ input.DEPLOY_PROD_1 }}
+    if: ${{ inputs.DEPLOY_PROD_1 }}
     uses: ./.github/workflows/do-deploy.yml
     with:
       ENVIRONMENT: prod-1
-      IMAGE_LABEL: ${{ input.IMAGE_LABEL }}
+      IMAGE_LABEL: ${{ inputs.IMAGE_LABEL }}
