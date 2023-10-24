@@ -9,7 +9,7 @@ jobs:
   release-deploy:
     uses: ./.github/workflows/deploy.yml
     with:
-      IMAGE_LABEL: ${{ github.ref }}
+      IMAGE_LABEL: ${{ github.ref_name }}
       DEPLOY_DEV_1: true
       DEPLOY_DEV_2: true
       DEPLOY_STAGING_1: true

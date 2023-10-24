@@ -11,7 +11,7 @@ jobs:
   dev-deploy:
     uses: ./.github/workflows/deploy.yml
     with:
-      IMAGE_LABEL: ${{ github.ref }}
+      IMAGE_LABEL: ${{ github.sha }}
       DEPLOY_DEV_1: true
       DEPLOY_DEV_2: false
       DEPLOY_STAGING_1: false
