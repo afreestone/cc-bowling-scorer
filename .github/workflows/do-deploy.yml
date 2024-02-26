@@ -38,7 +38,7 @@ env:
     },
     "staging-2": {
       "service-name": {
-        "image-name": "staging2"
+        "image-name": "absent"
       }
     },
     "staging-3": {
@@ -55,6 +55,7 @@ env:
 
 jobs:
   deployment:
+    if: ${{ fromJSON(env.ENV_MAPPING_DICT)[inputs.ENVIRONMENT][inputs.SERVICE_NAME].image-name != "absent" }}
     name: Deploy to ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
